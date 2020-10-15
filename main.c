@@ -1,7 +1,8 @@
 #include <linux/module.h>
-#include <linux/moduleparam.h>
 #include <linux/init.h>
 #include <linux/kernel.h>   
+
+#include "filesystem_filter.h"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Rhydon");
@@ -9,6 +10,7 @@ MODULE_AUTHOR("Rhydon");
 static int driver_init(void)
 {	
 	printk(KERN_ALERT "hello...\n");
+	initialize_filter("ext4_file_operations");
 	return 0;
 }
 

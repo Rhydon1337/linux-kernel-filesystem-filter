@@ -1,8 +1,8 @@
-MODULENAME := filesystem_filter
+MODULENAME := filesystem_filter_driver
 
 obj-m += $(MODULENAME).o
 
-$(MODULENAME)-y += main.o
+$(MODULENAME)-y += main.o filesystem_filter.o
 
 KERNELDIR ?= ~/workspace/buildroot-2020.02.4/output/build/linux-4.19.91
 
