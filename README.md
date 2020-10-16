@@ -2,15 +2,15 @@
 ## TL;DR
 Linux kernel filesystem filter driver.
 
-Depends on kallsyms which means it will work on most of Linux distros except embedded systems which probably compiled without it.
+Depends on kallsyms which means it will work on most of the Linux distros except embedded systems which probably compiled without it.
 
 Tested on Linux kernel version: 4.19.91.
 
 ## How it works
-Windows uses a driver stack model that able to use layers of drivers and therfore it utlizes this mechanism for the concept of filter drivers.
-The usage of filter drivers are needed for a lot of reasons, some of them related to the need of monitoring\blocking to calls.
-However, linux doesn't have this mechanism.
-Then I have chosen to implement filesysten filter, because in my opinion its the most important one.
+Windows uses a driver stack model that able to use layers of drivers and therefore it utilizes this mechanism for the concept of filter drivers.
+The usage of filter drivers is needed for a lot of reasons, some of them related to the need of monitoring\blocking to calls.
+However, Linux doesn't have this mechanism.
+Then I have chosen to implement filesystem filter, because in my opinion its the most important one.
 
 Based on "UnderStanding The Linux Kernel 3rd Edition" and some kernel browsing:
 
@@ -22,7 +22,7 @@ Let’s describe the operation of the sys_open() function. It performs the follo
     * Invokes open_namei(), passing to it the pathname, the modified access mode flags, and the address of a local nameidata data structure.
         * Invokes the dentry_open() function, passing to it the addresses of the dentry object and the mounted filesystem object located by the lookup operation, and the access mode flags.
 
-Lets dig into dentry_open():
+Let's dig into dentry_open():
 
 1. Allocates a new file object.
 2. Initializes the f_flags and f_mode fields of the file object according to the access mode flags passed to the open() system call.
@@ -34,15 +34,15 @@ Lets dig into dentry_open():
 8. If the O_DIRECT flag is set, it checks whether direct I/O operations can be performed on the file.
 9. Returns the address of the file object.
 
-In dentry_open the file object is allocated and initialized, dentry reiecve as parameter the dentry object and the mounted filesystem object 
-and sets the f_op field to the contents of the i_fop field of the corresponding inode object.
+In dentry_open the file object is allocated and initialized, dentry receives as parameter the dentry object and the mounted filesystem object 
+and sets the f_op field with the content of the i_fop field of the corresponding inode object.
 
-the f_op field is using for all file operations which are interesting us.
+The f_op field is used for all file operations which are interesting us.
 
 f->f_op = fops_get(inode->i_fop);
 f_op initialized by fops_get(inode->i_fop);
 
-Every filesystem must supplies for each inode a file_operations(i_fop), this is part a of the abstraction of Linux VFS.
+Every filesystem must supply for each inode a file_operations(i_fop), this is part a of the abstraction of Linux VFS.
 
 All we need to do is to set our callback in the matching filesystem's file_operations struct.
 
@@ -50,7 +50,7 @@ All we need to do is to set our callback in the matching filesystem's file_opera
 Everyone inside the kernel is able to lookup and edit the inode itself and change the pointer to the filesystem's file_operations struct.
 
 ## Usage
-Although that its just a template for filter drivers, current master branch prints every file name which opens in the system.
+Although that it's just a template for filter drivers, current master branch prints every file name which opens in the system.
 
 cd linux-kernel-filesystem-filter/
 make
