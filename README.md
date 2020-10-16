@@ -47,7 +47,7 @@ Every filesystem must supply for each inode a file_operations(i_fop), this is pa
 All we need to do is to set our callback in the matching filesystem's file_operations struct.
 
 ## Limitations
-Everyone inside the kernel is able to lookup and edit the inode itself and change the pointer to the filesystem's file_operations struct.
+Everyone inside the kernel is able to lookup and edit the inode itself and change the pointer to the another file_operations struct.
 
 ## Usage
 Although that it's just a template for filter drivers, current master branch prints every file name which opens in the system.
