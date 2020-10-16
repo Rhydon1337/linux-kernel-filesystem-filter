@@ -40,6 +40,7 @@ and sets the f_op field with the content of the i_fop field of the corresponding
 The f_op field is used for all file operations which are interesting us.
 
 f->f_op = fops_get(inode->i_fop);
+
 f_op initialized by fops_get(inode->i_fop);
 
 Every filesystem must supply for each inode a file_operations(i_fop), this is part a of the abstraction of Linux VFS.
