@@ -8,7 +8,7 @@ Tested on Linux kernel version: 4.19.91.
 
 ## How it works
 Windows uses a driver stack model that able to use layers of drivers and therefore it utilizes this mechanism for the concept of filter drivers.
-The usage of filter drivers is needed for a lot of reasons, some of them related to the need of monitoring\blocking to calls.
+The usage of filter drivers is needed for a lot of reasons, some of them related to the need of blocking\monitoring to calls.
 However, Linux doesn't have this mechanism.
 Then I have chosen to implement filesystem filter, because in my opinion its the most important one.
 
