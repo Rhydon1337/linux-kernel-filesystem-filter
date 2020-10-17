@@ -49,6 +49,7 @@ All we need to do is to set our callback in the matching filesystem's file_opera
 
 ## Limitations
 Everyone inside the kernel is able to lookup and edit the inode itself and change the pointer to the another file_operations struct.
+
 Current version depends on kallsyms in order to find the filesystem's file_operations struct. But, we can take an inode and from the inode->i_fop get it.
 
 ## Usage
