@@ -13,12 +13,7 @@ void initialize_filter(char* filesystem_file_operation_name) {
         return;
     }
 
-    g_original_fops.open = (void*)original_filesystem_fops->open;
-    g_original_fops.llseek = (void*)original_filesystem_fops->llseek;
-    g_original_fops.read_iter = (void*)original_filesystem_fops->read_iter;
-    g_original_fops.write_iter = (void*)original_filesystem_fops->write_iter;
-    g_original_fops.release = (void*)original_filesystem_fops->release;
-    g_original_fops.fsync = (void*)original_filesystem_fops->fsync;
+    g_original_fops = *original_filesystem_fops;
 
     write_cr0(prev_cr0 & (~ 0x10000));
 
