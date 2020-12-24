@@ -56,7 +56,9 @@ Current version depends on kallsyms in order to find the filesystem's file_opera
 Although that it's just a template for filter drivers, current master branch prints every file name which opens in the system.
 
 cd linux-kernel-filesystem-filter/
+
 make
+
 insmod filesystem_filter_driver.ko
 
 DONE!!!
